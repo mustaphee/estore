@@ -1,5 +1,5 @@
 <template>
- <div id="all">    
+ <div id="all">
       <header-comp></header-comp>
       <div id="heading-breadcrumbs">
         <div class="container">
@@ -42,7 +42,7 @@
                         <li class="nav-item"><a href="shop-category.html" class="nav-link">T-shirts</a></li>
                         <li class="nav-item"><a href="shop-category.html" class="nav-link">Shirts</a></li>
                         <li class="nav-item"><a href="shop-category.html" class="nav-link">Pants</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Accessories</a></li>
+                        <li class="nav-item"><a href="" :click="fetchDepartments()" class="nav-link">Accessories</a></li>
                       </ul>
                     </li>
                     <li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Ladies  </span><span class="badge badge-light">123</span></a>
@@ -251,6 +251,18 @@ export default {
     return {
      
     }
+  },
+  methods: {
+    fetchDepartments() {
+      // console.log(process.env.API_BASE_URL)
+      this.ajax.get('departments').then((r) => console.log(r))
+      // superAxios.get('departments').then((r)=>console.log(r))
+      
+    }
+  },
+  mounted: {
+    // fetchDepartments(),
+    
   }
 }
 </script>
