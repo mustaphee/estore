@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  BASE_API_URL: 'https://backendapi.turing.com/' //BAse API URL 
+  API_BASE_URL: '"https://backendapi.turing.com/"' //BAse API URL 
 })
