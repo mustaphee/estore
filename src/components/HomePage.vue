@@ -1,5 +1,5 @@
 <template>
- <div id="all">    
+ <div id="all">
       <header-comp></header-comp>
       <div id="heading-breadcrumbs">
         <div class="container">
@@ -36,30 +36,11 @@
                   <h3 class="h4 panel-title">Categories</h3>
                 </div>
                 <div class="panel-body">
-                  <ul class="nav nav-pills flex-column text-sm category-menu">
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Men </span><span class="badge badge-secondary">42</span></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">T-shirts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Shirts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Pants</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Accessories</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Ladies  </span><span class="badge badge-light">123</span></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">T-shirts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Skirts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Pants</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Accessories</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Kids  </span><span class="badge badge-secondary">11</span></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">T-shirts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Skirts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Pants</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Accessories</a></li>
-                      </ul>
+                  <ul v-for="department in departments" :key="department"  class="nav nav-pills flex-column text-sm category-menu">
+                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span> {{department.name}} </span></a>
+                      <ul v-for="category in categorySort(department.department_id)" :key="category" class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="shop-category.html" class="nav-link">{{category.name}}</a></li>
+                        </ul>
                     </li>
                   </ul>
                 </div>
@@ -135,10 +116,25 @@
               </div>
               <div class="banner"><a href="shop-category.html"><img src="static/img/banner.jpg" alt="sales 2014" class="img-fluid"></a></div>
             </div>
+
+<!-- <section class="bar bg-primary no-mb color-white">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1>Block with primary background</h1>
+              <p class="lead mb-0">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+            </div>
+          </div>
+        </div>
+      </section> -->
+
             <div class="col-md-9">
-              <p class="text-muted lead">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
+              <div class="bg-primary no-mb color-white" style="padding: 8px; text-transform: uppercase">
+              <h1 class="text-center">Featured {{departments[0].name}} Products</h1>
+              </div>
+              <p class="text-muted lead" style="margin: 20px !important">{{departments[0].description}}</p>
               <div class="row products products-big">
-                <div class="col-lg-4 col-md-6">
+                <!-- <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="shop-detail.html"><img src="static/img/product1.jpg" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
@@ -146,14 +142,16 @@
                       <p class="price">$143.00</p>
                     </div>
                   </div>
-                </div>
+                </div> -->
+                <div v-for="product in firstFeaturedProducts" :key="product">
+                  <!-- <li>{{product}}</li> -->
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="shop-detail.html"><img src="static/img/product2.jpg" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
+                      <h3 class="h5"><a href="shop-detail.html">{{product.name}}</a></h3>
                       <p class="price">
-                        <del>$280</del> $143.00
+                        <del>${{product.discounted_price}}</del> ${{product.price}}
                       </p>
                     </div>
                     <div class="ribbon-holder">
@@ -162,7 +160,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                </div>
+                <!-- <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="shop-detail.html"><img src="static/img/product3.jpg" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
@@ -170,7 +169,15 @@
                       <p class="price">$143.00</p>
                     </div>
                   </div>
-                </div>
+                </div> -->
+
+              <div class="col-md-12 bg-primary no-mb color-white" style="padding: 8px; text-transform: uppercase">
+                  <h1 class="text-center">Featured Regional Products</h1>
+              </div>
+              <p class="text-muted lead" style="margin: 20px !important">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
+              
+
+
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="shop-detail.html"><img src="static/img/product4.jpg" alt="" class="img-fluid image1"></a></div>
@@ -180,6 +187,9 @@
                     </div>
                   </div>
                 </div>
+
+         
+
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="shop-detail.html"><img src="static/img/product3.jpg" alt="" class="img-fluid image1"></a></div>
@@ -249,8 +259,72 @@ export default {
   name: 'Homepage',
   data () {
     return {
-     
+      // The arrays initialized with contents are fallback arrays incase of an improbable
+      // fetching error from the api
+      departments: this.$store.getters.getDepartments, 
+      categories: this.$store.getters.getCategories,
+      firstFeaturedProducts: this.$store.getters.getFirstFeatured || [],
+      secondFeaturedProducts: this.$store.getters.getSecondFeatured || [],
+      error: 'An error occurred' // Incase of an unkown error
     }
+  },
+  methods: {
+    fetchDepartments () {
+      this.ajax.get('departments')
+      .then((res) => {
+        console.log(res.data)
+        this.$store.commit('setDepartments', res.data)
+      })
+      .catch((err) => {
+        this.error = err
+      })
+    },
+    fetchCategories () {
+      this.ajax.get('categories')
+      .then(async (res) => {
+        console.log(res.data.rows)
+        this.$store.commit('setCategories', res.data.rows)
+        let a = await Math.floor(Math.random()*(res.data.rows.length+1))
+        const result = await Promise.all(this.fetchFirstFeaturedProducts(1), this.fetchSecondFeaturedProducts(a))
+      })
+      .catch((err) => {
+        this.error = err
+      })
+    }, 
+    categorySort(id) {
+      return this.categories.filter((category) => category.department_id === id)
+    },
+    // randomIter(arr, iterRound) {
+    //   for (i=0; i < iterRound; i++) {
+    //     randInt = Math.floor(Math.random()*(arr.length + 1))
+    //     newArr.push()
+    //   }
+
+    // },
+    fetchFirstFeaturedProducts(categoryNumber) {
+      this.ajax.get('products/inCategory/'+categoryNumber+'?limit=3')
+      .then((res) => {
+        console.log(res.data.rows)
+        this.$store.commit('setFirstFeatured', res.data.rows)
+      })
+      .catch((err) => {
+        this.error = err
+      })
+    },
+    fetchSecondFeaturedProducts(categoryNumber) {
+      this.ajax.get('products/inCategory/'+categoryNumber+'?limit=3')
+      .then((res) => {
+        console.log(res.data.rows)
+        this.$store.commit('setSecondFeatured', res.data.rows)
+      })
+      .catch((err) => {
+        this.error = err
+      })
+    }
+  },
+  mounted () {
+    this.fetchDepartments()
+    this.fetchCategories()
   }
 }
 </script>
