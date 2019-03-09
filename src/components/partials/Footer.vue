@@ -77,6 +77,6 @@
 </template>
 <script>
 export default {
-    name: 'FooterComp'
+  name: 'FooterComp'
 }
 </script>
